@@ -6,13 +6,11 @@
 <meta name="theme-color" content="#F6F1E7" />
 <title>영어공부 체크</title>
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
-<!-- Kakao SDK -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
   integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
   crossorigin="anonymous"></script>
@@ -26,12 +24,9 @@
     --muted:#8C857A;
     --line:#EBE3D3;
     --line2:#E0D7C4;
-    --me:#E0633A;        /* 사용자 A : 테라코타 */
-    --me-soft:#FBEAE2;
-    --partner:#2F8F86;   /* 사용자 B : 틸그린 */
-    --partner-soft:#E1F0EE;
+    --accent:#E0633A;
+    --accent-soft:#FBEAE2;
     --flame:#F2A33C;
-    --ok:#2E9E5F;
     --shadow:0 1px 2px rgba(43,38,32,.05),0 8px 24px rgba(43,38,32,.06);
     --shadow-lg:0 2px 4px rgba(43,38,32,.06),0 18px 48px rgba(43,38,32,.12);
     --r:18px;
@@ -39,9 +34,7 @@
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
   body{
-    background:
-      radial-gradient(1200px 600px at 50% -10%, #FFFCF4 0%, transparent 60%),
-      var(--bg);
+    background:radial-gradient(1200px 600px at 50% -10%, #FFFCF4 0%, transparent 60%), var(--bg);
     color:var(--ink);
     font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -50,655 +43,332 @@
   }
   .wrap{max-width:440px;margin:0 auto;padding:0 18px}
 
-  /* ---------- Header ---------- */
-  header{display:flex;align-items:center;justify-content:space-between;padding:22px 0 14px}
-  .brand{display:flex;align-items:baseline;gap:9px}
-  .brand h1{
-    font-family:"Gowun Batang",serif;font-weight:700;
-    font-size:23px;margin:0;letter-spacing:-.01em;line-height:1;
-  }
-  .brand .en{font-size:11px;color:var(--muted);letter-spacing:.18em;font-weight:600;text-transform:uppercase}
-  .iconbtn{
-    width:38px;height:38px;border-radius:12px;border:1px solid var(--line);
-    background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;
-    transition:transform .12s ease, background .15s ease;
-  }
-  .iconbtn:active{transform:scale(.92)}
-  .iconbtn svg{width:19px;height:19px}
+  header{padding:24px 2px 16px}
+  header h1{font-family:"Gowun Batang",serif;font-weight:700;font-size:24px;margin:0;letter-spacing:-.01em;line-height:1}
+  header .sub{font-size:12.5px;color:var(--muted);margin-top:5px;font-weight:500}
 
-  /* ---------- Today card ---------- */
-  .today{
-    background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
-    box-shadow:var(--shadow);padding:22px 20px 24px;margin-bottom:14px;position:relative;overflow:hidden;
-  }
-  .today .date{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.02em}
-  .today .dnum{font-family:"Gowun Batang",serif;font-size:30px;font-weight:700;line-height:1.05;margin-top:2px}
+  /* Today */
+  .today{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 20px 26px;margin-bottom:14px}
+  .today .date{font-size:13px;color:var(--muted);font-weight:600}
+  .today .dnum{font-family:"Gowun Batang",serif;font-size:29px;font-weight:700;line-height:1.05;margin-top:2px}
   .today .dnum small{font-size:14px;color:var(--muted);font-weight:400;font-family:Pretendard,sans-serif;margin-left:6px}
 
-  .checkzone{display:flex;flex-direction:column;align-items:center;margin-top:18px}
-  .checkbtn{
-    --c:var(--me);
-    position:relative;width:124px;height:124px;border-radius:50%;
-    border:2.5px solid var(--c);background:var(--surface);cursor:pointer;
-    display:grid;place-items:center;transition:transform .15s cubic-bezier(.34,1.56,.64,1),background .25s ease,box-shadow .25s ease;
-  }
+  .checkzone{display:flex;flex-direction:column;align-items:center;margin-top:20px}
+  .checkbtn{position:relative;width:130px;height:130px;border-radius:50%;border:2.5px solid var(--accent);background:var(--surface);cursor:pointer;display:grid;place-items:center;transition:transform .15s cubic-bezier(.34,1.56,.64,1),background .25s ease,box-shadow .25s ease}
   .checkbtn:active{transform:scale(.94)}
-  .checkbtn .ring{position:absolute;inset:-2.5px;border-radius:50%}
-  .checkbtn .mark{width:54px;height:54px;display:block}
-  .checkbtn .mark path{
-    fill:none;stroke:var(--c);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;
-    stroke-dasharray:48;stroke-dashoffset:48;transition:stroke-dashoffset .35s ease .05s, stroke .2s ease;
-  }
-  .checkbtn .plus{font-family:"Gowun Batang",serif;font-size:13px;color:var(--c);font-weight:700;letter-spacing:.02em;text-align:center;line-height:1.3}
-  .checkbtn.done{background:var(--c);box-shadow:0 10px 26px -8px var(--c)}
+  .checkbtn .mark{width:56px;height:56px;display:block}
+  .checkbtn .mark path{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:48;stroke-dashoffset:48;transition:stroke-dashoffset .35s ease .05s, stroke .2s ease}
+  .checkbtn .plus{font-family:"Gowun Batang",serif;font-size:14px;color:var(--accent);font-weight:700;text-align:center;line-height:1.3}
+  .checkbtn.done{background:var(--accent);box-shadow:0 12px 28px -8px var(--accent)}
   .checkbtn.done .mark path{stroke:#fff;stroke-dashoffset:0}
+  .checkbtn.done .plus{display:none}
   .checkbtn.pop{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
   @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+  .checklabel{margin-top:16px;font-size:16px;font-weight:700;text-align:center}
+  .checksub{margin-top:4px;font-size:12.5px;color:var(--muted);text-align:center;min-height:16px}
+  .actions{margin-top:10px;display:flex;gap:10px;align-items:center}
+  .undo{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;padding:4px}
+  .sharebtn{font-size:12.5px;color:var(--accent);background:var(--accent-soft);border:1px solid #F3D6C8;border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:700}
+  .sharebtn:active{transform:scale(.96)}
 
-  .checklabel{margin-top:14px;font-size:15px;font-weight:700;text-align:center}
-  .checksub{margin-top:3px;font-size:12.5px;color:var(--muted);text-align:center;min-height:16px}
-  .undo{margin-top:6px;font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;padding:4px}
-
-  /* confetti */
   .confetti{position:absolute;left:50%;top:0;width:9px;height:9px;border-radius:2px;pointer-events:none;opacity:0}
   .checkbtn.burst .confetti{animation:burst .7s ease-out forwards}
-  @keyframes burst{
-    0%{opacity:1;transform:translate(-50%,40px) scale(.6) rotate(0)}
-    100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1) rotate(220deg)}
-  }
+  @keyframes burst{0%{opacity:1;transform:translate(-50%,40px) scale(.6) rotate(0)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1) rotate(220deg)}}
 
-  /* ---------- Partner + streak row ---------- */
-  .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:14px}
-  .mini{
-    background:var(--surface);border:1px solid var(--line);border-radius:16px;
-    padding:15px 15px 16px;box-shadow:var(--shadow);min-width:0;
-  }
-  .mini .top{display:flex;align-items:center;gap:9px}
-  .avatar{
-    width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
-    color:#fff;font-weight:700;font-size:14px;flex:none;
-  }
-  .mini .nm{font-size:13.5px;font-weight:700;line-height:1.1}
-  .mini .role{font-size:10.5px;color:var(--muted);margin-top:1px}
-  .statusline{margin-top:13px;display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700}
-  .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--line2)}
-  .dot.on-me{background:var(--me)}
-  .dot.on-partner{background:var(--partner)}
-  .statusline.waiting{color:var(--muted);font-weight:600}
+  /* Share toggle */
+  .sharerow{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 16px;box-shadow:var(--shadow);margin-bottom:14px}
+  .sharerow .srl{font-size:13.5px;font-weight:600}
+  .sharerow .srd{font-size:11px;color:var(--muted);margin-top:2px}
+  .switch{width:46px;height:27px;border-radius:14px;background:var(--line2);position:relative;cursor:pointer;flex:none;transition:background .2s}
+  .switch.on{background:var(--accent)}
+  .switch::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .2s}
+  .switch.on::after{left:22px}
 
-  .streakcard{
-    background:linear-gradient(160deg,#FFF6E9,#FFFDF8);border:1px solid var(--line);
-    border-radius:16px;padding:15px;box-shadow:var(--shadow);
-  }
-  .streakcard .lab{font-size:10.5px;color:var(--muted);font-weight:700;letter-spacing:.04em}
-  .streaknums{display:flex;align-items:baseline;gap:6px;margin-top:6px}
-  .streaknums .big{font-family:"Gowun Batang",serif;font-size:34px;font-weight:700;line-height:.9}
-  .streaknums .unit{font-size:13px;color:var(--muted);font-weight:600}
-  .streaksub{margin-top:7px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:5px}
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:linear-gradient(160deg,#FFF6E9,#FFFDF8);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+  .stat{text-align:center;padding:16px 8px;position:relative}
+  .stat + .stat::before{content:"";position:absolute;left:0;top:22%;height:56%;width:1px;background:var(--line2)}
+  .stat .sv{font-family:"Gowun Batang",serif;font-size:28px;font-weight:700;line-height:1}
+  .stat .sl{font-size:11px;color:var(--muted);font-weight:600;margin-top:6px}
 
-  /* ---------- Calendar ---------- */
+  /* Calendar */
   .cal{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 16px 20px}
   .calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
   .calhead .mtitle{font-family:"Gowun Batang",serif;font-size:17px;font-weight:700}
   .navb{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer}
   .navb:active{transform:scale(.9)}
-  .navb svg{width:15px;height:15px;stroke:var(--ink)}
+  .navb svg{width:15px;height:15px;stroke:var(--ink);fill:none}
   .navb[disabled]{opacity:.3;cursor:default}
   .dow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 4px;margin-bottom:8px}
   .dow span{text-align:center;font-size:11px;color:var(--muted);font-weight:700}
   .dow span.sun{color:#D9694F}
   .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px 4px}
-  .cell{min-width:0;aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative}
-  .cell .n{font-size:12px;color:var(--ink);font-weight:600;line-height:1}
-  .cell.out .n{color:#CDC4B4}
-  .cell.today{background:#FFF3DF;outline:1.5px solid #F3CD8E}
-  .cell .dots{display:flex;gap:3px;height:7px;align-items:center}
-  .cell .cd{width:6px;height:6px;border-radius:50%;background:transparent;border:1px solid var(--line2)}
-  .cell .cd.me{background:var(--me);border-color:var(--me)}
-  .cell .cd.partner{background:var(--partner);border-color:var(--partner)}
-  .callegend{display:flex;justify-content:center;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
-  .callegend .lg{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);font-weight:600}
-  .callegend .lg b{font-weight:700;color:var(--ink)}
-  .callegend .sw{width:9px;height:9px;border-radius:50%}
+  .cell{min-width:0;aspect-ratio:1;display:grid;place-items:center}
+  .cell .day{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--ink);transition:background .2s ease}
+  .cell.out .day{color:#CDC4B4}
+  .cell.done .day{background:var(--accent);color:#fff;font-weight:700}
+  .cell.today .day{box-shadow:0 0 0 2px var(--paper),0 0 0 3.5px var(--flame)}
+  .calsum{text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);font-weight:600}
+  .calsum b{color:var(--ink);font-weight:700}
 
-  /* ---------- footer state ---------- */
   .foot{text-align:center;margin-top:16px;font-size:11px;color:var(--muted)}
   .foot button{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:11px}
 
-  /* ---------- toast ---------- */
-  .toast{
-    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
-    background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:600;
-    box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .25s ease;z-index:60;max-width:90%;
-  }
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .25s ease;z-index:60;max-width:90%}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* ---------- modal (identity / settings) ---------- */
-  .overlay{position:fixed;inset:0;background:rgba(43,38,32,.42);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center;z-index:50}
-  .overlay.show{display:flex}
-  .sheet{
-    background:var(--surface);width:100%;max-width:440px;border-radius:22px 22px 0 0;
-    padding:24px 22px calc(26px + env(safe-area-inset-bottom));box-shadow:var(--shadow-lg);
-    animation:rise .3s cubic-bezier(.16,1,.3,1);
-  }
-  @keyframes rise{from{transform:translateY(100%)}to{transform:translateY(0)}}
-  .sheet h2{font-family:"Gowun Batang",serif;font-size:19px;margin:0 0 4px}
-  .sheet p.sub{font-size:13px;color:var(--muted);margin:0 0 18px}
-  .pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
-  .pickbtn{
-    border:2px solid var(--line);background:var(--paper);border-radius:14px;padding:16px 10px;cursor:pointer;
-    display:flex;flex-direction:column;align-items:center;gap:9px;transition:all .15s ease;
-  }
-  .pickbtn:active{transform:scale(.96)}
-  .pickbtn .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px}
-  .pickbtn .pn{font-size:14px;font-weight:700}
-  .pickbtn.sel{border-color:var(--ink);background:#fff}
-
-  .togglerow{display:flex;align-items:center;justify-content:space-between;padding:15px 2px;border-top:1px solid var(--line);margin-top:16px}
-  .togglerow .tl{font-size:14px;font-weight:600}
-  .togglerow .td{font-size:11.5px;color:var(--muted);margin-top:2px}
-  .switch{width:46px;height:27px;border-radius:14px;background:var(--line2);position:relative;cursor:pointer;flex:none;transition:background .2s}
-  .switch.on{background:var(--ok)}
-  .switch::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .2s}
-  .switch.on::after{left:22px}
-  .closebtn{width:100%;margin-top:18px;padding:14px;border-radius:14px;border:none;background:var(--ink);color:#fff;font-size:15px;font-weight:700;cursor:pointer}
-  .closebtn:active{opacity:.85}
-
-  .skeleton{opacity:.4}
-  @media (max-width:360px){ .checkbtn{width:108px;height:108px} }
+  @media (max-width:360px){ .checkbtn{width:112px;height:112px} .stat .sv{font-size:24px} }
 </style>
 </head>
 <body>
 
-<div class="wrap" id="app">
+<div class="wrap">
   <header>
-    <div class="brand">
-      <h1>영어공부 체크</h1>
-    </div>
-    <button class="iconbtn" id="gear" aria-label="설정">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    </button>
+    <h1>영어공부 체크</h1>
+    <div class="sub" id="subline">매일 한 번, 가볍게 쌓아가요</div>
   </header>
 
-  <!-- TODAY -->
   <section class="today">
     <div class="date" id="dateLabel">—</div>
     <div class="dnum" id="dateNum">—</div>
     <div class="checkzone">
       <button class="checkbtn" id="checkBtn">
         <svg class="mark" viewBox="0 0 60 60"><path d="M14 32 L26 44 L47 18"/></svg>
-        <span class="plus" id="checkInner">오늘<br>완료</span>
+        <span class="plus">오늘<br>완료</span>
         <span class="confetti"></span><span class="confetti"></span><span class="confetti"></span>
         <span class="confetti"></span><span class="confetti"></span><span class="confetti"></span>
       </button>
       <div class="checklabel" id="checkLabel">불러오는 중…</div>
       <div class="checksub" id="checkSub"></div>
-      <button class="undo" id="undoBtn" style="display:none">체크 취소</button>
+      <div class="actions">
+        <button class="undo" id="undoBtn" style="display:none">체크 취소</button>
+        <button class="sharebtn" id="shareBtn" style="display:none">📤 카톡으로 공유</button>
+      </div>
     </div>
   </section>
 
-  <!-- PARTNER + STREAK -->
-  <div class="row2">
-    <div class="mini" id="partnerCard">
-      <div class="top">
-        <div class="avatar" id="pAvatar">친</div>
-        <div>
-          <div class="nm" id="pName">친구</div>
-          <div class="role">오늘 상태</div>
-        </div>
-      </div>
-      <div class="statusline waiting" id="pStatus"><span class="dot"></span>—</div>
+  <div class="sharerow">
+    <div>
+      <div class="srl">완료하면 카톡으로 공유 📤</div>
+      <div class="srd">체크 시 카톡 친구에게 인증 메시지 전송</div>
     </div>
-    <div class="streakcard">
-      <div class="lab">내 연속 기록</div>
-      <div class="streaknums"><span class="big" id="myStreak">0</span><span class="unit">일째 🔥</span></div>
-      <div class="streaksub" id="streakSub">오늘도 가볍게 시작해요</div>
-    </div>
+    <div class="switch on" id="shareSwitch"></div>
   </div>
 
-  <!-- CALENDAR -->
+  <section class="stats">
+    <div class="stat"><div class="sv" id="curStreak">0</div><div class="sl">현재 연속 🔥</div></div>
+    <div class="stat"><div class="sv" id="bestStreak">0</div><div class="sl">최고 연속</div></div>
+    <div class="stat"><div class="sv" id="totalDays">0</div><div class="sl">총 공부일</div></div>
+  </section>
+
   <section class="cal">
     <div class="calhead">
-      <button class="navb" id="prevM"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="navb" id="prevM"><svg viewBox="0 0 24 24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
       <div class="mtitle" id="calTitle">—</div>
-      <button class="navb" id="nextM"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <button class="navb" id="nextM"><svg viewBox="0 0 24 24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
     <div class="dow"><span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
     <div class="grid" id="calGrid"></div>
-    <div class="callegend">
-      <span class="lg"><span class="sw" style="background:var(--me)"></span><b id="lgMe">나</b> <span id="lgMeCnt">0일</span></span>
-      <span class="lg"><span class="sw" style="background:var(--partner)"></span><b id="lgPartner">친구</b> <span id="lgPartnerCnt">0일</span></span>
-    </div>
+    <div class="calsum" id="calSum">이번 달 <b>0일</b> 공부했어요</div>
   </section>
 
-  <div class="foot">
-    <span id="syncState">동기화 대기</span> · <button id="refreshBtn">새로고침</button>
-  </div>
-</div>
-
-<!-- IDENTITY / SETTINGS SHEET -->
-<div class="overlay" id="overlay">
-  <div class="sheet">
-    <h2 id="sheetTitle">나는 누구인가요?</h2>
-    <p class="sub" id="sheetSub">이 기기에서 체크할 사람을 골라주세요. 언제든 설정에서 바꿀 수 있어요.</p>
-    <div class="pick" id="pickWrap"></div>
-    <div class="togglerow">
-      <div>
-        <div class="tl">체크하면 카카오톡 보내기</div>
-        <div class="td">완료 시 상대에게 카톡 알림을 보냅니다</div>
-      </div>
-      <div class="switch on" id="kakaoSwitch"></div>
-    </div>
-    <button class="closebtn" id="sheetClose">완료</button>
-  </div>
+  <div class="foot"><span id="syncState">동기화 대기</span> · <button id="refreshBtn">새로고침</button></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 /* ==========================================================================
-   ⚙️  설정 — 이 부분만 채우면 됩니다
+   ⚙️  설정
+   - GAS_URL : 기존 시트 그대로 사용
+   - KAKAO_JS_KEY : 카카오 JavaScript 키 (없으면 "" 로 두면 카톡만 비활성화)
    ========================================================================== */
 const CONFIG = {
-  // 1) Apps Script 웹앱 배포 URL (…/exec)
   GAS_URL: "https://script.google.com/macros/s/AKfycbwgBYcRl_OgxVbLJp1_fWVP9Rx9UUgYcfFZY9utkwuCunN1NU2X_S0VAysQt_WB55Ee/exec",
-
-  // 2) 카카오 개발자 > JavaScript 키 (없으면 비워두면 카톡 전송만 비활성화됨)
   KAKAO_JS_KEY: "1a7dd3d79a05fb0d6391bea269c16796",
-
-  // 3) 이 앱이 배포된 주소 (카톡 메시지의 링크로 사용)
-  APP_URL: "https://eatonkorea.github.io/study-check/",
-
-  // 4) 함께 공부하는 두 사람 (id는 고정, name만 바꾸면 됩니다)
-  USERS: [
-    { id: "a", name: "이세민", color: "var(--me)" },
-    { id: "b", name: "박인희", color: "var(--partner)" },
-  ],
+  USER: "a",          // 솔로 사용자 식별자 (고정)
+  NAME: "이세민",      // 화면 표시용 이름
 };
 /* ========================================================================== */
 
-/* 카카오톡 인앱 브라우저에서 열렸으면 외부 브라우저(Safari/Chrome)로 자동 전환.
-   인앱에서는 카카오 공유가 불안정(특히 안드로이드)하기 때문. 일반 브라우저에선 동작 안 함. */
-(function () {
-  var ua = (navigator.userAgent || "").toLowerCase();
-  if (ua.indexOf("kakaotalk") !== -1) {
-    location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(location.href);
-  }
-})();
+/* 카카오톡 인앱 브라우저에서 열렸으면 외부 브라우저로 자동 전환 (인앱은 공유 불안정) */
+(function(){ var ua=(navigator.userAgent||"").toLowerCase(); if(ua.indexOf("kakaotalk")!==-1){ location.href="kakaotalk://web/openExternal?url="+encodeURIComponent(location.href); } })();
 
-const LS_ME = "studycheck_me";
-const LS_KAKAO = "studycheck_kakao";
+let state = { done: new Set(), today: null, calY: null, calM: null, loading: false };
 
-let state = {
-  checks: {},      // { "YYYY-MM-DD": { a:true, b:true } }
-  today: null,     // 서버 기준 KST 오늘
-  meId: localStorage.getItem(LS_ME) || null,
-  calY: null, calM: null, // 달력에 표시 중인 연/월
-  loading: false,
-};
-
-/* ---------- helpers ---------- */
 const $ = (id) => document.getElementById(id);
 const pad = (n) => String(n).padStart(2, "0");
 const ymd = (y, m, d) => `${y}-${pad(m)}-${pad(d)}`;
-const userById = (id) => CONFIG.USERS.find((u) => u.id === id) || CONFIG.USERS[0];
-const meUser = () => userById(state.meId);
-const partnerUser = () => CONFIG.USERS.find((u) => u.id !== state.meId) || CONFIG.USERS[1];
+function addDays(s, n){ const [y,m,d]=s.split("-").map(Number); const dt=new Date(y,m-1,d); dt.setDate(dt.getDate()+n); return ymd(dt.getFullYear(),dt.getMonth()+1,dt.getDate()); }
 
-function toast(msg, ms = 2200) {
-  const t = $("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove("show"), ms);
-}
+function toast(msg, ms=2200){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),ms); }
 
-function kakaoOn() {
-  const v = localStorage.getItem(LS_KAKAO);
-  return v === null ? true : v === "1";
-}
-
-/* ---------- GAS API ---------- */
-async function apiGet() {
-  const url = CONFIG.GAS_URL + "?action=status&t=" + Date.now();
-  const res = await fetch(url, { method: "GET" });
-  return res.json();
-}
-async function apiWrite(action, date) {
-  // text/plain → CORS preflight 회피 (GAS 호환)
-  const res = await fetch(CONFIG.GAS_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ action, date, user: state.meId }),
-  });
-  return res.json();
-}
-
-function applyData(data) {
-  state.checks = {};
-  (data.checks || []).forEach((c) => {
-    (state.checks[c.date] = state.checks[c.date] || {})[c.user] = true;
-  });
-  state.today = data.serverDate;
-  if (state.calY === null) {
-    const [y, m] = state.today.split("-");
-    state.calY = +y; state.calM = +m;
-  }
-}
-
-async function load() {
-  if (CONFIG.GAS_URL.includes("PASTE_")) {
-    $("syncState").textContent = "GAS_URL 설정 필요";
-    $("checkLabel").textContent = "설정을 먼저 완료해 주세요";
-    return;
-  }
-  state.loading = true;
-  $("syncState").textContent = "동기화 중…";
-  try {
-    const data = await apiGet();
-    if (!data.ok) throw new Error(data.error || "load fail");
-    applyData(data);
-    render();
-    $("syncState").textContent = "마지막 동기화 " + new Date().toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
-  } catch (e) {
-    $("syncState").textContent = "연결 실패 — 새로고침 해보세요";
-    toast("서버 연결에 실패했어요");
-    console.error(e);
-  } finally {
-    state.loading = false;
-  }
-}
-
-/* ---------- streak ---------- */
-function streakOf(userId) {
-  if (!state.today) return 0;
-  const has = (s) => state.checks[s] && state.checks[s][userId];
-  let [y, m, d] = state.today.split("-").map(Number);
-  let cur = new Date(y, m - 1, d);
-  // 오늘 안 했으면 어제부터 카운트 (하루는 봐줌)
-  if (!has(state.today)) cur.setDate(cur.getDate() - 1);
-  let count = 0;
-  while (true) {
-    const s = ymd(cur.getFullYear(), cur.getMonth() + 1, cur.getDate());
-    if (has(s)) { count++; cur.setDate(cur.getDate() - 1); }
-    else break;
-  }
-  return count;
-}
-
-function monthCount(userId, y, m) {
-  let n = 0;
-  Object.keys(state.checks).forEach((s) => {
-    const [yy, mm] = s.split("-").map(Number);
-    if (yy === y && mm === m && state.checks[s][userId]) n++;
-  });
-  return n;
-}
-
-/* ---------- render ---------- */
-function render() {
-  const me = meUser(), partner = partnerUser();
-  const t = state.today;
-  const meDone = !!(state.checks[t] && state.checks[t][me.id]);
-  const partnerDone = !!(state.checks[t] && state.checks[t][partner.id]);
-
-  // date
-  if (t) {
-    const [y, m, d] = t.split("-").map(Number);
-    const dt = new Date(y, m - 1, d);
-    const wd = ["일","월","화","수","목","금","토"][dt.getDay()];
-    $("dateLabel").textContent = `${y}년 ${m}월`;
-    $("dateNum").innerHTML = `${m}월 ${d}일 <small>${wd}요일</small>`;
-  }
-
-  // check button (내 색으로)
-  const btn = $("checkBtn");
-  btn.style.setProperty("--c", me.color);
-  btn.classList.toggle("done", meDone);
-  $("checkInner").style.display = meDone ? "none" : "block";
-  if (meDone) {
-    const at = (state.checks[t] && state.checks[t]._at) || "";
-    $("checkLabel").textContent = "오늘 완료! 🎉";
-    $("checkSub").textContent = "내일도 이 기세로 가요";
-    $("undoBtn").style.display = "block";
-  } else {
-    $("checkLabel").textContent = "오늘 공부했나요?";
-    $("checkSub").textContent = "버튼을 눌러 인증하기";
-    $("undoBtn").style.display = "none";
-  }
-
-  // partner
-  $("pAvatar").textContent = partner.name.slice(0, 1);
-  $("pAvatar").style.background = partner.color;
-  $("pName").textContent = partner.name;
-  const ps = $("pStatus");
-  if (partnerDone) {
-    ps.className = "statusline";
-    ps.innerHTML = `<span class="dot on-partner"></span>오늘 완료 ✓`;
-  } else {
-    ps.className = "statusline waiting";
-    ps.innerHTML = `<span class="dot"></span>아직이에요`;
-  }
-
-  // streak
-  const ms = streakOf(me.id);
-  $("myStreak").textContent = ms;
-  $("streakSub").textContent =
-    ms === 0 ? "오늘부터 1일째 시작!" :
-    ms < 3   ? "꾸준함 유지 중" :
-    ms < 7   ? "좋은 흐름이에요 👍" :
-    ms < 14  ? "벌써 일주일 넘게! 🔥" : "대단해요, 습관이 됐네요 ✨";
-
-  renderCalendar();
-}
-
-function renderCalendar() {
-  const me = meUser(), partner = partnerUser();
-  const y = state.calY, m = state.calM;
-  $("calTitle").textContent = `${y}년 ${m}월`;
-
-  const grid = $("calGrid");
-  grid.innerHTML = "";
-  const first = new Date(y, m - 1, 1);
-  const startDow = first.getDay();
-  const daysIn = new Date(y, m, 0).getDate();
-
-  // 앞 공백 (이전 달 흐릿하게)
-  const prevDays = new Date(y, m - 1, 0).getDate();
-  for (let i = startDow - 1; i >= 0; i--) {
-    grid.appendChild(cellEl(prevDays - i, true, null, false, false));
-  }
-  for (let d = 1; d <= daysIn; d++) {
-    const s = ymd(y, m, d);
-    const isToday = s === state.today;
-    const c = state.checks[s] || {};
-    grid.appendChild(cellEl(d, false, { me: !!c[me.id], partner: !!c[partner.id] }, isToday));
-  }
-  // 뒤 공백 채우기 (한 줄 정렬)
-  const total = startDow + daysIn;
-  const tail = (7 - (total % 7)) % 7;
-  for (let d = 1; d <= tail; d++) grid.appendChild(cellEl(d, true, null, false));
-
-  // legend
-  $("lgMe").textContent = me.name;
-  $("lgPartner").textContent = partner.name;
-  $("lgMeCnt").textContent = monthCount(me.id, y, m) + "일";
-  $("lgPartnerCnt").textContent = monthCount(partner.id, y, m) + "일";
-
-  // next 버튼: 미래 달이면 비활성
-  if (state.today) {
-    const [ty, tm] = state.today.split("-").map(Number);
-    $("nextM").disabled = (y > ty) || (y === ty && m >= tm);
-  }
-}
-
-function cellEl(dayNum, out, marks, isToday) {
-  const el = document.createElement("div");
-  el.className = "cell" + (out ? " out" : "") + (isToday ? " today" : "");
-  const n = document.createElement("div");
-  n.className = "n"; n.textContent = dayNum; el.appendChild(n);
-  const dots = document.createElement("div");
-  dots.className = "dots";
-  if (!out) {
-    const a = document.createElement("span");
-    a.className = "cd" + (marks && marks.me ? " me" : "");
-    const b = document.createElement("span");
-    b.className = "cd" + (marks && marks.partner ? " partner" : "");
-    dots.appendChild(a); dots.appendChild(b);
-  }
-  el.appendChild(dots);
-  return el;
-}
-
-/* ---------- check actions ---------- */
-async function doCheck() {
-  if (state.loading || !state.today) return;
-  const t = state.today, me = meUser();
-  if (state.checks[t] && state.checks[t][me.id]) return; // 이미 완료
-
-  const btn = $("checkBtn");
-  // optimistic UI
-  (state.checks[t] = state.checks[t] || {})[me.id] = true;
-  state.loading = true;
-  btn.classList.remove("pop", "burst"); void btn.offsetWidth;
-  btn.classList.add("pop", "burst");
-  setupConfetti();
-  render();
-
-  try {
-    const r = await apiWrite("check", t);
-    if (!r.ok) throw new Error(r.error);
-    if (r.checks) { applyData(r); render(); }
-    sendKakao();
-  } catch (e) {
-    delete state.checks[t][me.id];
-    render();
-    toast("저장 실패 — 다시 시도해 주세요");
-    console.error(e);
-  } finally {
-    state.loading = false;
-  }
-}
-
-async function doUncheck() {
-  if (state.loading || !state.today) return;
-  const t = state.today, me = meUser();
-  if (!(state.checks[t] && state.checks[t][me.id])) return;
-  if (!confirm("오늘 체크를 취소할까요?")) return;
-
-  delete state.checks[t][me.id];
-  state.loading = true; render();
-  try {
-    const r = await apiWrite("uncheck", t);
-    if (!r.ok) throw new Error(r.error);
-    if (r.checks) { applyData(r); render(); }
-    toast("체크를 취소했어요");
-  } catch (e) {
-    (state.checks[t] = state.checks[t] || {})[me.id] = true;
-    render(); toast("취소 실패");
-  } finally {
-    state.loading = false;
-  }
-}
-
-function setupConfetti() {
-  const cols = ["var(--me)","var(--partner)","var(--flame)","#7BC47F","#F4D35E"];
-  document.querySelectorAll("#checkBtn .confetti").forEach((c, i) => {
-    const ang = (Math.PI * 2 * i) / 6 + (Math.random() - .5);
-    const dist = 56 + Math.random() * 26;
-    c.style.setProperty("--dx", `calc(-50% + ${Math.cos(ang) * dist}px)`);
-    c.style.setProperty("--dy", `${-Math.abs(Math.sin(ang)) * dist - 6}px`);
-    c.style.background = cols[i % cols.length];
-  });
-}
-
-/* ---------- Kakao ---------- */
-function initKakao() {
-  if (window.Kakao && CONFIG.KAKAO_JS_KEY && !CONFIG.KAKAO_JS_KEY.includes("PASTE_")) {
-    try { if (!Kakao.isInitialized()) Kakao.init(CONFIG.KAKAO_JS_KEY); } catch (e) {}
-  }
-}
-function sendKakao() {
-  if (!kakaoOn()) return;
-  if (!window.Kakao || !CONFIG.KAKAO_JS_KEY || CONFIG.KAKAO_JS_KEY.includes("PASTE_")) {
-    toast("완료! (카톡 키 미설정)"); return;
-  }
-  try {
-    if (!Kakao.isInitialized()) Kakao.init(CONFIG.KAKAO_JS_KEY);
-    const me = meUser(), partner = partnerUser();
-    const s = streakOf(me.id);
-    const here = location.href; // 실제 배포 주소 사용 → 등록 도메인과 항상 일치
+/* ---- Kakao 공유 ---- */
+function kakaoReady(){ return window.Kakao && CONFIG.KAKAO_JS_KEY && !CONFIG.KAKAO_JS_KEY.includes("PASTE_"); }
+function initKakao(){ if(kakaoReady()){ try{ if(!Kakao.isInitialized()) Kakao.init(CONFIG.KAKAO_JS_KEY); }catch(e){} } }
+function shareOnCheck(){ try{ const v=localStorage.getItem("studycheck_share"); return v===null?true:v==="1"; }catch(e){ return true; } }
+function sendKakao(){
+  if(!kakaoReady()){ toast("카톡 키가 설정되지 않았어요"); return; }
+  try{
+    if(!Kakao.isInitialized()) Kakao.init(CONFIG.KAKAO_JS_KEY);
+    const s=currentStreak(), here=location.href;
     Kakao.Share.sendDefault({
-      objectType: "text",
-      text: `📚 영어공부 인증!\n${me.name}님이 오늘 공부를 완료했어요 (연속 ${s}일째 🔥)\n${partner.name}님도 오늘 잊지 말고 체크해요!`,
-      link: { mobileWebUrl: here, webUrl: here },
-      buttonTitle: "나도 체크하러 가기",
+      objectType:"text",
+      text:`📚 영어공부 인증!\n${CONFIG.NAME}님이 오늘 공부를 완료했어요 (연속 ${s}일째 🔥)`,
+      link:{ mobileWebUrl:here, webUrl:here },
     });
-  } catch (e) {
-    toast("카톡 오류: " + (e && e.message ? e.message : e)); console.error(e);
+  }catch(e){ toast("카톡 오류: "+(e&&e.message?e.message:e)); console.error(e); }
+}
+
+/* ---- GAS ---- */
+async function apiGet(){ const r=await fetch(CONFIG.GAS_URL+"?action=status&t="+Date.now(),{method:"GET"}); return r.json(); }
+async function apiWrite(action, date){
+  const r=await fetch(CONFIG.GAS_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action,date,user:CONFIG.USER})});
+  return r.json();
+}
+function applyData(data){
+  state.done=new Set();
+  (data.checks||[]).forEach(c=>{ if(c.user===CONFIG.USER) state.done.add(c.date); });
+  state.today=data.serverDate;
+  if(state.calY===null){ const [y,m]=state.today.split("-"); state.calY=+y; state.calM=+m; }
+}
+async function load(){
+  if(CONFIG.GAS_URL.includes("PASTE_")){ $("syncState").textContent="GAS_URL 설정 필요"; $("checkLabel").textContent="설정을 먼저 완료해 주세요"; return; }
+  state.loading=true; $("syncState").textContent="동기화 중…";
+  try{
+    const data=await apiGet();
+    if(!data.ok) throw new Error(data.error||"load fail");
+    applyData(data); render();
+    $("syncState").textContent="마지막 동기화 "+new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+  }catch(e){ $("syncState").textContent="연결 실패 — 새로고침 해보세요"; toast("서버 연결에 실패했어요"); console.error(e); }
+  finally{ state.loading=false; }
+}
+
+/* ---- stats ---- */
+function currentStreak(){
+  if(!state.today) return 0;
+  let cur = state.done.has(state.today) ? state.today : addDays(state.today,-1);
+  let n=0; while(state.done.has(cur)){ n++; cur=addDays(cur,-1); } return n;
+}
+function bestStreak(){
+  const arr=[...state.done].sort();
+  let best=0, run=0, prev=null;
+  for(const s of arr){ run = (prev && addDays(prev,1)===s) ? run+1 : 1; if(run>best) best=run; prev=s; }
+  return best;
+}
+function monthCount(y,m){ let n=0; state.done.forEach(s=>{ const [yy,mm]=s.split("-").map(Number); if(yy===y&&mm===m) n++; }); return n; }
+
+/* ---- render ---- */
+function render(){
+  const t=state.today;
+  const done = t && state.done.has(t);
+  $("subline").textContent = `${CONFIG.NAME}님 · 매일 한 번, 가볍게 쌓아가요`;
+
+  if(t){
+    const [y,m,d]=t.split("-").map(Number);
+    const wd=["일","월","화","수","목","금","토"][new Date(y,m-1,d).getDay()];
+    $("dateLabel").textContent=`${y}년 ${m}월`;
+    $("dateNum").innerHTML=`${m}월 ${d}일 <small>${wd}요일</small>`;
   }
+
+  const btn=$("checkBtn");
+  btn.classList.toggle("done", !!done);
+  if(done){
+    $("checkLabel").textContent="오늘 완료! 🎉";
+    $("checkSub").textContent="내일도 이 기세로 가요";
+    $("undoBtn").style.display="inline-block";
+    $("shareBtn").style.display="inline-block";
+  }else{
+    $("checkLabel").textContent="오늘 공부했나요?";
+    $("checkSub").textContent="버튼을 눌러 인증하기";
+    $("undoBtn").style.display="none";
+    $("shareBtn").style.display="none";
+  }
+
+  $("curStreak").textContent=currentStreak();
+  $("bestStreak").textContent=bestStreak();
+  $("totalDays").textContent=state.done.size;
+
+  renderCalendar();
 }
 
-/* ---------- identity / settings sheet ---------- */
-function openSheet(firstTime) {
-  $("sheetTitle").textContent = firstTime ? "나는 누구인가요?" : "설정";
-  $("sheetSub").textContent = firstTime
-    ? "이 기기에서 체크할 사람을 골라주세요. 언제든 설정에서 바꿀 수 있어요."
-    : "이 기기의 사용자와 카카오톡 알림을 설정합니다.";
-  const wrap = $("pickWrap");
-  wrap.innerHTML = "";
-  CONFIG.USERS.forEach((u) => {
-    const b = document.createElement("button");
-    b.className = "pickbtn" + (u.id === state.meId ? " sel" : "");
-    b.innerHTML = `<span class="av" style="background:${u.color}">${u.name.slice(0,1)}</span><span class="pn">${u.name}</span>`;
-    b.onclick = () => {
-      state.meId = u.id;
-      localStorage.setItem(LS_ME, u.id);
-      [...wrap.children].forEach((c) => c.classList.remove("sel"));
-      b.classList.add("sel");
-      render();
-    };
-    wrap.appendChild(b);
+function cellEl(dayNum,out,done,today){
+  const el=document.createElement("div");
+  el.className="cell"+(out?" out":"")+(done?" done":"")+(today?" today":"");
+  const c=document.createElement("div"); c.className="day"; c.textContent=dayNum;
+  el.appendChild(c); return el;
+}
+function renderCalendar(){
+  const y=state.calY, m=state.calM;
+  $("calTitle").textContent=`${y}년 ${m}월`;
+  const grid=$("calGrid"); grid.innerHTML="";
+  const startDow=new Date(y,m-1,1).getDay();
+  const daysIn=new Date(y,m,0).getDate();
+  const prevDays=new Date(y,m-1,0).getDate();
+  for(let i=startDow-1;i>=0;i--) grid.appendChild(cellEl(prevDays-i,true,false,false));
+  for(let d=1;d<=daysIn;d++){
+    const s=ymd(y,m,d);
+    grid.appendChild(cellEl(d,false,state.done.has(s),s===state.today));
+  }
+  const tail=(7-((startDow+daysIn)%7))%7;
+  for(let d=1;d<=tail;d++) grid.appendChild(cellEl(d,true,false,false));
+
+  $("calSum").innerHTML=`이번 달 <b>${monthCount(y,m)}일</b> 공부했어요`;
+  if(state.today){ const [ty,tm]=state.today.split("-").map(Number); $("nextM").disabled=(y>ty)||(y===ty&&m>=tm); }
+}
+
+/* ---- actions ---- */
+function setupConfetti(){
+  const cols=["var(--accent)","var(--flame)","#7BC47F","#F4D35E","#E0633A"];
+  document.querySelectorAll("#checkBtn .confetti").forEach((c,i)=>{
+    const ang=(Math.PI*2*i)/6+(Math.random()-.5), dist=58+Math.random()*26;
+    c.style.setProperty("--dx",`calc(-50% + ${Math.cos(ang)*dist}px)`);
+    c.style.setProperty("--dy",`${-Math.abs(Math.sin(ang))*dist-6}px`);
+    c.style.background=cols[i%cols.length];
   });
-  $("kakaoSwitch").classList.toggle("on", kakaoOn());
-  $("overlay").classList.add("show");
 }
-function closeSheet() {
-  if (!state.meId) { state.meId = "a"; localStorage.setItem(LS_ME, "a"); }
-  $("overlay").classList.remove("show");
-  render();
+async function doCheck(){
+  if(state.loading||!state.today) return;
+  if(state.done.has(state.today)) return;
+  state.done.add(state.today); state.loading=true;
+  const btn=$("checkBtn"); btn.classList.remove("pop","burst"); void btn.offsetWidth; btn.classList.add("pop","burst");
+  setupConfetti(); render();
+  try{
+    const r=await apiWrite("check",state.today);
+    if(!r.ok) throw new Error(r.error);
+    if(r.checks){ applyData(r); render(); }
+    if(shareOnCheck()) sendKakao();   // 체크 완료 → 카톡 공유창
+  }catch(e){ state.done.delete(state.today); render(); toast("저장 실패 — 다시 시도해 주세요"); console.error(e); }
+  finally{ state.loading=false; }
+}
+async function doUncheck(){
+  if(state.loading||!state.today) return;
+  if(!state.done.has(state.today)) return;
+  if(!confirm("오늘 체크를 취소할까요?")) return;
+  state.done.delete(state.today); state.loading=true; render();
+  try{
+    const r=await apiWrite("uncheck",state.today);
+    if(!r.ok) throw new Error(r.error);
+    if(r.checks){ applyData(r); render(); }
+    toast("체크를 취소했어요");
+  }catch(e){ state.done.add(state.today); render(); toast("취소 실패"); }
+  finally{ state.loading=false; }
 }
 
-/* ---------- events ---------- */
-$("checkBtn").addEventListener("click", doCheck);
-$("undoBtn").addEventListener("click", doUncheck);
-$("gear").addEventListener("click", () => openSheet(false));
-$("sheetClose").addEventListener("click", closeSheet);
-$("kakaoSwitch").addEventListener("click", function () {
-  const on = !this.classList.contains("on");
-  this.classList.toggle("on", on);
-  localStorage.setItem(LS_KAKAO, on ? "1" : "0");
-});
-$("refreshBtn").addEventListener("click", load);
-$("prevM").addEventListener("click", () => {
-  state.calM--; if (state.calM < 1) { state.calM = 12; state.calY--; }
-  renderCalendar();
-});
-$("nextM").addEventListener("click", () => {
-  if ($("nextM").disabled) return;
-  state.calM++; if (state.calM > 12) { state.calM = 1; state.calY++; }
-  renderCalendar();
-});
-$("overlay").addEventListener("click", (e) => { if (e.target === $("overlay") && state.meId) closeSheet(); });
-document.addEventListener("visibilitychange", () => { if (!document.hidden && state.meId) load(); });
+/* ---- events ---- */
+$("checkBtn").addEventListener("click",doCheck);
+$("undoBtn").addEventListener("click",doUncheck);
+$("shareBtn").addEventListener("click",sendKakao);
+$("shareSwitch").addEventListener("click",function(){ const on=!this.classList.contains("on"); this.classList.toggle("on",on); try{ localStorage.setItem("studycheck_share",on?"1":"0"); }catch(e){} });
+$("refreshBtn").addEventListener("click",load);
+$("prevM").addEventListener("click",()=>{ state.calM--; if(state.calM<1){state.calM=12;state.calY--;} renderCalendar(); });
+$("nextM").addEventListener("click",()=>{ if($("nextM").disabled) return; state.calM++; if(state.calM>12){state.calM=1;state.calY++;} renderCalendar(); });
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) load(); });
 
-/* ---------- init ---------- */
+/* ---- init ---- */
 initKakao();
-(async function () {
-  await load();
-  if (!state.meId) openSheet(true);
-  else render();
-})();
+$("shareSwitch").classList.toggle("on", shareOnCheck());
+load();
 </script>
 </body>
 </html>
