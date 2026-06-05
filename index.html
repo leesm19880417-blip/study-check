@@ -317,6 +317,15 @@ const CONFIG = {
 };
 /* ========================================================================== */
 
+/* 카카오톡 인앱 브라우저에서 열렸으면 외부 브라우저(Safari/Chrome)로 자동 전환.
+   인앱에서는 카카오 공유가 불안정(특히 안드로이드)하기 때문. 일반 브라우저에선 동작 안 함. */
+(function () {
+  var ua = (navigator.userAgent || "").toLowerCase();
+  if (ua.indexOf("kakaotalk") !== -1) {
+    location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(location.href);
+  }
+})();
+
 const LS_ME = "studycheck_me";
 const LS_KAKAO = "studycheck_kakao";
 
@@ -618,14 +627,15 @@ function sendKakao() {
     if (!Kakao.isInitialized()) Kakao.init(CONFIG.KAKAO_JS_KEY);
     const me = meUser(), partner = partnerUser();
     const s = streakOf(me.id);
+    const here = location.href; // 실제 배포 주소 사용 → 등록 도메인과 항상 일치
     Kakao.Share.sendDefault({
       objectType: "text",
       text: `📚 영어공부 인증!\n${me.name}님이 오늘 공부를 완료했어요 (연속 ${s}일째 🔥)\n${partner.name}님도 오늘 잊지 말고 체크해요!`,
-      link: { mobileWebUrl: CONFIG.APP_URL, webUrl: CONFIG.APP_URL },
+      link: { mobileWebUrl: here, webUrl: here },
       buttonTitle: "나도 체크하러 가기",
     });
   } catch (e) {
-    toast("완료! (카톡 공유 취소됨)"); console.error(e);
+    toast("카톡 오류: " + (e && e.message ? e.message : e)); console.error(e);
   }
 }
 
