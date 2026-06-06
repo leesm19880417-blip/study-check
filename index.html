@@ -102,12 +102,12 @@
   .dow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 4px;margin-bottom:8px}
   .dow span{text-align:center;font-size:11px;color:var(--muted);font-weight:700}
   .dow span.sun{color:#D9694F}
-  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px 4px}
-  .cell{min-width:0;aspect-ratio:1;display:grid;place-items:center}
-  .cell .day{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--ink);transition:background .2s ease}
+  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px 4px}
+  .cell{min-width:0;height:42px;display:flex;align-items:center;justify-content:center}
+  .cell .day{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink);transition:background .2s ease}
   .cell.out .day{color:#CDC4B4}
   .cell.done .day{background:var(--accent);color:#fff;font-weight:700}
-  .cell.today .day{box-shadow:0 0 0 2px var(--paper),0 0 0 3.5px var(--flame)}
+  .cell.now .day{box-shadow:0 0 0 2px var(--flame)}
   .calsum{text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);font-weight:600}
   .calsum b{color:var(--ink);font-weight:700}
 
@@ -294,7 +294,7 @@ function render(){
 
 function cellEl(dayNum,out,done,today){
   const el=document.createElement("div");
-  el.className="cell"+(out?" out":"")+(done?" done":"")+(today?" today":"");
+  el.className="cell"+(out?" out":"")+(done?" done":"")+(today?" now":"");
   const c=document.createElement("div"); c.className="day"; c.textContent=dayNum;
   el.appendChild(c); return el;
 }
